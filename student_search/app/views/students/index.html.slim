@@ -1,0 +1,20 @@
+h1
+  | 学生検索
+= search_form_for(@q, url:search_path) do |f|
+  p
+    =  f.label :subjects_id_in, '履修科目'
+    =  f.collection_check_boxes :subjects_id_in, @departments, :id, :name
+  = f.submit
+table
+  - @students.each do |student|
+    tr
+      td
+        = student.name
+      td
+        = student.sex
+      td
+        = student.age
+      td
+        = student.department.name
+      td
+        = student.subjects.map{|subject_id| Subject.find(subject_id).name}.join(', ')
